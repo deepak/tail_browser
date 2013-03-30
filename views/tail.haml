@@ -1,0 +1,15 @@
+#tail-log
+
+#hidden{:'data-faye' => faye_path, :'data-room' => '/tail'}
+
+:javascript
+  var faye_js = $("#hidden").attr("data-faye");
+  var room = $("#hidden").attr("data-room");
+  
+  $(function() {
+    var client = new Faye.Client(faye_js, {timeout: 120});
+    var subscription = client.subscribe(room, function(msg) {
+      $("#tail-log").append("<p>" + msg + "</p>");
+    });
+  });
+  
